@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cases.Domain.Contracts;
+using Cases.Domain.Implementations.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Cases.Controllers
 {
@@ -11,21 +9,18 @@ namespace Cases.Controllers
     [Route("controller")]
     public class CasesController : ControllerBase
     {
-        private readonly ILogger<CasesController> _logger;
-        private readonly IYouTubeLikeService _youTubeLikeService;
+        private readonly IYouTubeTestService _youTubeLikeService;
 
-        public CasesController(ILogger<CasesController> logger, IYouTubeLikeService youTubeLikeService)
+        public CasesController(IYouTubeTestService youTubeLikeService)
         {
-            _logger = logger;
             _youTubeLikeService = youTubeLikeService;
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> Case(int id)
+        [HttpPost]
+        public async Task<IActionResult> TestCase(CaseModel model)
         {
-            _youTubeLikeService.DoTests(id);
-
-            return Ok();
+            var result = _youTubeLikeService.DoTests(model.Id);
+            return Ok(result);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Cases
 
             services.AddControllers();
 
-            services.AddTransient<IYouTubeLikeService, YouTubeLikeService>();
+            services.AddTransient<IYouTubeTestService, YouTubeTestService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
