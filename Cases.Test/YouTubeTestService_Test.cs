@@ -12,14 +12,23 @@ namespace Cases.Test
 {
     public class YouTubeTestService_Test
     {
+        IYouTubeTestService service;
+        Mock<ILogger<YouTubeTestService>> mockLogger;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockLogger = new Mock<ILogger<YouTubeTestService>>();
+            service = new YouTubeTestService(mockLogger.Object);
+        }
+
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
         public async Task CasesController_ReturnsOkObjectResult(int id)
         {
             //Arrange
-            var service = new Mock<IYouTubeTestService>();
-            var controller = new CasesController(service.Object);
+            var controller = new CasesController(service);
             var model = new CaseModel() { Id = id};
 
             //Act
@@ -32,11 +41,8 @@ namespace Cases.Test
         [TestCase(TestType.TestYouTubeLike)]
         public async Task TestYouTubeLike_ReturnsFalse(int id)
         {
-            //Arrange
-            var service = new Mock<IYouTubeTestService>();
-
             //Act
-            var result = await service.Object.DoTests(id);
+            var result = await service.DoTests(id);
 
             //Assert
             Assert.AreEqual(result, false);
@@ -46,10 +52,6 @@ namespace Cases.Test
         [TestCase(TestType.TestYouTubeComment)]
         public async Task TestYouTubeComment_ReturnsTrue(int id)
         {
-            //Arrange
-            var mockLogger = new Mock<ILogger<YouTubeTestService>>();
-            var service = new YouTubeTestService(mockLogger.Object);
-
             //Act
             var result = await service.DoTests(id);
 
@@ -61,10 +63,6 @@ namespace Cases.Test
         [TestCase(TestType.TestYouTubeSearch)]
         public async Task TestYouTubeSearch_ReturnsTrue(int id)
         {
-            //Arrange
-            var mockLogger = new Mock<ILogger<YouTubeTestService>>();
-            var service = new YouTubeTestService(mockLogger.Object);
-
             //Act
             var result = await service.DoTests(id);
 
@@ -76,10 +74,6 @@ namespace Cases.Test
         [TestCase(4)]
         public async Task DoTests_ReturnsFalse(int id)
         {
-            //Arrange
-            var mockLogger = new Mock<ILogger<YouTubeTestService>>();
-            var service = new YouTubeTestService(mockLogger.Object);
-
             //Act
             var result = await service.DoTests(id);
 
