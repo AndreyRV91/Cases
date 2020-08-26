@@ -5,8 +5,6 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using OpenQA.Selenium.Interactions;
-using System.Reflection;
 
 namespace Cases.Domain.Implementations
 {

@@ -2,8 +2,6 @@
 using Cases.Domain.Implementations.Tests;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Cases.Domain.Implementations
 {

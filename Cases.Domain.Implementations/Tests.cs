@@ -59,9 +59,9 @@ namespace Cases.Domain.Implementations.Tests
                 //scroll to comment input
                 await Task.Delay(500);
                 driver.ExecuteScript("window.scrollTo(0,5000)");
-                await Task.Delay(1000);
+                await Task.Delay(2000);
                 driver.ExecuteScript("window.scrollTo(0,10000)");
-                await Task.Delay(1000);
+                await Task.Delay(2000);
 
                 //press on comment input
                 wait.Until(d => driver.FindElementByXPath("//yt-formatted-string[contains(@id, 'simplebox-placeholder')]").Displayed);
@@ -96,10 +96,9 @@ namespace Cases.Domain.Implementations.Tests
                 searchbutton.Click();
 
                 //check presence of Kaspersky user on page
-                wait.Until(d => driver.FindElementByXPath("//a[contains(@href,'/user/Kaspersky')]").Displayed);
-                var kasperskyLink = driver.FindElementByXPath("//a[contains(@href,'/user/Kaspersky')]");
-
-                return !string.IsNullOrEmpty(kasperskyLink.GetAttribute("href"));
+                wait.Until(d => driver.FindElementsByXPath("//a[contains(@href,'/user/Kaspersky')]").Count > 0);
+                var kasperskyChannelLink = driver.FindElementByXPath("//a[contains(@class,'channel-link yt-simple-endpoint style-scope ytd-channel-renderer')]");
+                return kasperskyChannelLink.GetAttribute("href").Contains(@"https://www.youtube.com/user/Kaspersky");
             }
             catch
             {
